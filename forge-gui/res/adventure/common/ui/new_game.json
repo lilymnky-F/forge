@@ -150,6 +150,26 @@
       "y": 96
     },
     {
+      "type": "TextField",
+      "name": "nameField",
+      "selectable": true,
+      "align": 1,
+      "width": 112,
+      "height": 16,
+      "x": 174,
+      "y": 96
+    },
+    {
+      "type": "TextField",
+      "name": "nameField",
+      "selectable": true,
+      "align": 1,
+      "width": 112,
+      "height": 16,
+      "x": 174,
+      "y": 96
+    },
+    {
       "type": "Selector",
       "name": "race",
       "selectable": true,

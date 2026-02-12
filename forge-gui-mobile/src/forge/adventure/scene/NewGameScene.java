@@ -273,8 +273,8 @@ public class NewGameScene extends MenuScene {
 
     private void generateName() {
         //gender should be either Male or Female
-        String val = gender.getCurrentIndex() > 0 ? "Female" : "Male";
-        selectedName.setText(NameGenerator.getRandomName(val, "Any", ""));
+        /*String val = gender.getCurrentIndex() > 0 ? "Female" : "Male";
+        selectedName.setText(NameGenerator.getRandomName(val, "Any", ""));*/
     }
 
     private void updateModeSelectionState(AdventureModes selectedMode) {

@@ -234,6 +234,11 @@
             </exclusions>
         </dependency>
         <dependency>
+            <groupId>io.github.archipelagomw</groupId>
+            <artifactId>Java-Client</artifactId>
+            <version>0.2.0</version>
+        </dependency>
+        <dependency>
             <groupId>com.badlogicgames.gdx</groupId>
             <artifactId>gdx-box2d-platform</artifactId>
             <version>1.13.5</version>
