@@ -2,14 +2,15 @@ package forge.adventure.data;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.utils.Array;
-
+import forge.StaticData;
 import forge.adventure.util.AdventureQuestController;
-import forge.adventure.util.Current;
 import forge.util.Aggregates;
 import forge.util.MyRandom;
+import org.apache.commons.lang3.tuple.Pair;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Random;
 
@@ -101,33 +102,36 @@ public class BiomeData implements Serializable {
         return Aggregates.random(extraSpawnEnemies); //fallback, shouldn't reach this point but guarantee that we return something
     }
 
+    public EnemyData getNewSpawnEnemy(float difficultyFactor, HashMap<String, Pair<Integer,Integer>> winLossRecord) {
+        //todo: implement difficultyFactor
+        ArrayList<EnemyData> newSpawnEnemies = new ArrayList<>();
+        for (EnemyData data : enemyList) {
+            if (data.spawnRate > 0) {
+                if (winLossRecord.get(data.name) == null || winLossRecord.get(data.name).getKey() == 0) {
+                    newSpawnEnemies.add(data);
+                }
+            }
+        }
+        if (newSpawnEnemies.isEmpty())
+            return null;
+        return Aggregates.random(newSpawnEnemies); //fallback, shouldn't reach this point but guarantee that we return something
+    }
+
     public EnemyData getEnemy(float difficultyFactor) {
+        //todo: implement difficultyFactor
         float totalDistribution = 0.0f;
-        difficultyFactor = Current.player().getStatistic().rank(); // compare difficulty data to how many wins you have on your save
-        List<EnemyData> filteredEnemies = new ArrayList<>();
-        for (EnemyData data : enemyList ){
-            if (data.difficulty <= difficultyFactor) { 
-                filteredEnemies.add(data);
-                totalDistribution += data.spawnRate;
-            }
+        for (EnemyData data : enemyList) {
+            totalDistribution += data.spawnRate;
         }
-        // If no enemies match the criteria, fallback to a random enemy from the original list
-        if (filteredEnemies.isEmpty()) {
-            return Aggregates.random(enemyList);
-        }
-
-        // Perform weighted random selection
-        float f = totalDistribution * rand.nextFloat();
         int i = 0;
-        for (; i < filteredEnemies.size(); i++) {
-            f -= filteredEnemies.get(i).spawnRate;
-            if (f <= 0.0f) {
-                return filteredEnemies.get(i);
+        for (float f = totalDistribution * rand.nextFloat(); i < enemyList.size(); i++)
+        {
+            f -= ( enemyList.get(i).spawnRate);
+            if (f <= 0.0f){
+                return enemyList.get(i);
             }
         }
-
-        // Fallback, should not normally reach here
-        return Aggregates.random(filteredEnemies);
+        return Aggregates.random(enemyList); //fallback, shouldn't reach this point but guarantee that we return something
     }
 
     private ArrayList<String> unusedTownNames;

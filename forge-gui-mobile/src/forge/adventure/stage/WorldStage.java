@@ -288,6 +288,7 @@ public class WorldStage extends GameStage implements SaveFileContent {
         if (list == null)
             return;
         EnemyData enemyData = data.getEnemy(1.0f);
+        EnemyData newEnemyData = data.getNewSpawnEnemy(1.0f, Current.player().getStatistic().getWinLossRecord());
         EnemyData extraSpawnForQuests = data.getExtraSpawnEnemy(1.0f);
         if (extraSpawnForQuests != null) {
             float spawnPicker = rand.nextFloat();
@@ -304,8 +305,17 @@ public class WorldStage extends GameStage implements SaveFileContent {
                 spawn(enemyData);
             }
 
-        }
-        else spawn(enemyData);
+        } else if (newEnemyData != null) {
+            float spawnPicker = rand.nextFloat();
+
+            if (spawnPicker > 0f) {
+                spawn(newEnemyData);
+            }
+            else {
+                spawn(enemyData);
+            }
+
+        } else spawn(enemyData);
     }
 
     private boolean spawn(EnemySprite sprite){
