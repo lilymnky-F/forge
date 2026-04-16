@@ -165,8 +165,8 @@ public class SpellSmithScene extends UIScene {
     }
 
     public void loadEditions() {
-        if (editions != null)
-            return;
+        // if (editions != null)
+        //    return;
         editions = StaticData.instance().getSortedEditions().stream().filter(input -> {
             if (input == null)
                 return false;
