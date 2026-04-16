@@ -95,7 +95,7 @@ public class RewardData implements Serializable {
     private static Iterable<PaperCard> allCards;
     private static Iterable<PaperCard> allEnemyCards;
 
-    static private void initializeAllCards(){
+    public static void initializeAllCards(){
         ConfigData configData = Config.instance().getConfigData();
         RewardData legals = configData.legalCards;
 

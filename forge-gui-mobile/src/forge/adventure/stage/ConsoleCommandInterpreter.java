@@ -29,13 +29,12 @@ import forge.model.FModel;
 import forge.screens.CoverScreen;
 import forge.util.Aggregates;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 import java.util.function.Function;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import static forge.adventure.data.RewardData.initializeAllCards;
 
 public class ConsoleCommandInterpreter {
     private static ConsoleCommandInterpreter instance;
@@ -344,6 +343,19 @@ public class ConsoleCommandInterpreter {
             Current.player().fullHeal();
             currentSprite().playEffect(Paths.EFFECT_HEAL);
             return "Player fully healed. Health set to " + Current.player().getLife() + ".";
+        });
+        registerCommand(new String[]{"add", "set"}, s -> {
+            if (s.length < 1)
+                return "Command needs at least 1 parameter: Edition code.";
+            CardEdition edition = StaticData.instance().getCardEdition(s[0]);
+            if (edition == null)
+                return "Cannot find edition: " + s[0];
+            ConfigData configData = Config.instance().getConfigData();
+            Set<String> allowed = new HashSet<>(Arrays.asList(configData.allowedEditions));
+            allowed.add(s[0]);
+            configData.allowedEditions = allowed.toArray(new String[0]);
+            initializeAllCards();
+            return "Added set " + s[0] + " to allowed sets.";
         });
         registerCommand(new String[]{"listPOI"}, s -> {
             ArrayList<String> poiNames = new ArrayList<>();
