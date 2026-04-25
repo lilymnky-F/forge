@@ -28,6 +28,7 @@ import forge.model.CardBlock;
 import forge.model.FModel;
 import forge.screens.CoverScreen;
 import forge.util.Aggregates;
+import forge.adventure.archipelago.*;
 
 import java.util.*;
 import java.util.function.Function;
@@ -351,6 +352,9 @@ public class ConsoleCommandInterpreter {
             if (edition == null)
                 return "Cannot find edition: " + s[0];
             ConfigData configData = Config.instance().getConfigData();
+            if (configData.allowedEditions == null) {
+                return "This plane doesn't have allowed editions";
+            }
             Set<String> allowed = new HashSet<>(Arrays.asList(configData.allowedEditions));
             allowed.add(s[0]);
             configData.allowedEditions = allowed.toArray(new String[0]);
@@ -572,6 +576,21 @@ public class ConsoleCommandInterpreter {
             MapStage.getInstance().clearOnExit();
             
             return "Exit the map to reset it.";
+        });
+        // AP commands
+        registerCommand(new String[]{"connect"}, s -> {
+            Archipelago.archipelago = new Archipelago();
+            if (s.length < 2) return "Command needs 2/3 parameters: Server (with port), Slotname, password (if any)";
+            if (s.length < 3) {
+                ArchipelagoServerConnector.connectToServer(s[0], s[1], "");
+                return "Attempting connection with no password";
+            }
+            if (s.length == 3) {
+                ArchipelagoServerConnector.connectToServer(s[0], s[1], s[2]);
+                return "Attempting connection with password";
+            }
+            return "Command needs 2/3 parameters: Server (with port), Slotname, password (if any)";
+
         });
     }
 }
