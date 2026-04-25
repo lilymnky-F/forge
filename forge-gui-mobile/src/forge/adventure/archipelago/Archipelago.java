@@ -20,7 +20,7 @@ public class Archipelago extends Client {
         this.setItemsHandlingFlags(ItemsHandling.SEND_ITEMS + ItemsHandling.SEND_OWN_ITEMS + ItemsHandling.SEND_STARTING_INVENTORY);
 
         // this.getEventManager().registerListener(new APPrintJsonEvents());
-        // this.getEventManager().registerListener(new APReceiveItemEvents());
+        this.getEventManager().registerListener(new APReceiveItemEvents());
         this.getEventManager().registerListener(new APConnectEvents());
         // this.getEventManager().registerListener(new APDeathlinkEvents());
         // this.getEventManager().registerListener(new APBouncedEvents());
