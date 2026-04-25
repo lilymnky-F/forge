@@ -22,10 +22,7 @@
   "restrictedEditions": [],
   "restrictedEvents": [],
   "allowedEditions": [
-    "RAV", "10E", "DKA", "8ED", "GPT", "LRW", "M15", "SCG", "SOI", "WTH", "AER", "EVE", "NPH", "HOU", "ARB", "APC", "NMS",
-    "DIS", "WWK", "M11", "JOU", "PLC", "CSP", "PLS", "CFX", "FRF", "M10", "MMQ", "DOM", "INV", "CHR", "DTK", "EMN", "OGW",
-    "RTR", "PCY", "ICE", "UDS", "TSB", "BNG", "DGM", "5ED", "6ED", "BOK", "DST", "5DN", "MRD", "FUT", "CHK", "MOR",
-    "AVR", "M19", "ULG", "TSP", "RIX"
+    "RAV"
   ],
   "allowedJumpstart": [
     "Jumpstart"
