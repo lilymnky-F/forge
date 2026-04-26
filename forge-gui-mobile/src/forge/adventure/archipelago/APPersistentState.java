@@ -15,17 +15,8 @@ import java.util.Map;
 public class APPersistentState {
     public static APPersistentState state = new APPersistentState();
 
-    // Saves the Indexes of items to prevent them from being re-given in a world that they were already obtained in
-    private final Map<Long, String> receivedItems = new HashMap<>();
-    // Saves unlocked advancements, so they're granted to any additional players in the world
-    private final List<Long> advancementIds = new ArrayList<>();
-    // Saves found Itemsanity Checks
-    private final List<Long> itemsanityIds = new ArrayList<>();
-
-//    private final Set<Item> collectedItems = new HashSet<>();
-    private boolean hasKilledEnderDragon;
-    private boolean hasKilledWither;
-    private int currentRubyCount;
+    public static List<String> allowedBiomes = new ArrayList<>();
+    public static Integer lastBiome = null;
 
     private String currentServer = "";
     private String currentPlayer = "";
@@ -53,32 +44,6 @@ public class APPersistentState {
 
     public String getCurrentPassword() {
         return this.currentPassword;
-    }
-
-    // Goal Management Stuff ///////////////////////////////////////////////////////////////////////////////////////////
-
-    public boolean hasKilledEnderDragon() {
-        return this.hasKilledEnderDragon;
-    }
-
-    public boolean hasKilledWither() {
-        return this.hasKilledWither;
-    }
-
-    public int getCollectedRubies() {
-        return this.currentRubyCount;
-    }
-
-    public void setHasKilledEnderDragon(boolean hasKilledEnderDragon) {
-        this.hasKilledEnderDragon = hasKilledEnderDragon;
-    }
-
-    public void setHasKilledWither(boolean hasKilledWither) {
-        this.hasKilledWither = hasKilledWither;
-    }
-
-    public void setCurrentRubyCount(int currentRubyCount) {
-        this.currentRubyCount = currentRubyCount;
     }
 }
 

@@ -9,6 +9,7 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.utils.Timer;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import forge.Forge;
+import forge.adventure.archipelago.APPersistentState;
 import forge.adventure.character.CharacterSprite;
 import forge.adventure.character.EnemySprite;
 import forge.adventure.data.*;
@@ -28,6 +29,9 @@ import forge.util.MyRandom;
 import org.apache.commons.lang3.tuple.Pair;
 
 import java.util.*;
+
+import static forge.adventure.archipelago.APPersistentState.*;
+import static forge.adventure.archipelago.Archipelago.archipelago;
 
 
 /**
@@ -204,7 +208,26 @@ public class WorldStage extends GameStage implements SaveFileContent {
         }
     }
 
+    private boolean archipelagoPOIBiomeCheck() {
+        // Checks if a Biome is invalid to enter a PoI, Returns "True" is the biome is not allowed
+        World world = WorldSave.getCurrentSave().getWorld();
+        int currentBiome = World.highestBiome(world.getBiome((int) player.getX() / world.getTileSize(), (int) player.getY() / world.getTileSize()));
+        List<BiomeData> biomeData = WorldSave.getCurrentSave().getWorld().getData().GetBiomes();
+        if (biomeData.size() <= currentBiome) {// if isOnRoad, use last known biome
+            if (lastBiome == null) {
+                return true;
+            }
+            currentBiome = lastBiome;
+        }
+        lastBiome = currentBiome;
+        BiomeData data = biomeData.get(currentBiome);
+        return data == null || !allowedBiomes.contains(data.name);
+    }
+
     public boolean handlePointsOfInterestCollision() {
+        if (archipelago != null && archipelagoPOIBiomeCheck()) {
+            return false;
+        }
         for (Actor actor : foregroundSprites.getChildren()) {
             if (actor.getClass() == PointOfInterestMapSprite.class) {
                 PointOfInterestMapSprite point = (PointOfInterestMapSprite) actor;
@@ -284,6 +307,9 @@ public class WorldStage extends GameStage implements SaveFileContent {
         if (spawnDelay >= 0) return;
         spawnDelay = spawnInterval + (rand.nextFloat() * 4.0f);
 
+        if (archipelago != null && !allowedBiomes.contains(data.name)) {
+            return;
+        }
         ArrayList<EnemyData> list = data.getEnemyList();
         if (list == null)
             return;

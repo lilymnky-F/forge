@@ -13,6 +13,7 @@ import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
+import static forge.adventure.archipelago.APPersistentState.allowedBiomes;
 import static forge.adventure.data.RewardData.initializeAllCards;
 
 
@@ -60,6 +61,10 @@ public class APReceiveItemEvents {
             configData.allowedEditions = allowed.toArray(new String[0]);
             initializeAllCards();
             System.out.println("Added set " + s[0] + " to allowed sets.");
+        }
+        if (event.getItemName().contains("Biome")) {
+            String[] s = event.getItemName().split(" ");
+            allowedBiomes.add(APData.basic_to_biome.get(s[1].toLowerCase()));
         }
 
     }
