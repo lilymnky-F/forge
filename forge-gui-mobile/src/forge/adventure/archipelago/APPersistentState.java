@@ -5,13 +5,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-/**
- * Saves Data to the Minecraft World
- *  - Received Items
- *  - Checked Locations
- *  - Status of various abilities
- *  - The Current Archipelago Server
- */
 public class APPersistentState {
     public static APPersistentState state = new APPersistentState();
 
