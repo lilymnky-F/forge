@@ -592,5 +592,28 @@ public class ConsoleCommandInterpreter {
             return "Command needs 2/3 parameters: Server (with port), Slotname, password (if any)";
 
         });
+        registerCommand(new String[]{"send"}, s -> {
+            if (Archipelago.archipelago == null) {
+                return "Please connect to archipelago first.";
+            }
+            if (s.length < 1) return "Command needs 1 parameter: Check_ID";
+            long value;
+            try {
+                value = Long.parseLong(s[0]);
+            } catch (Exception e) {
+                Set<Long> missing_locations = Archipelago.archipelago.getLocationManager().getMissingLocations();
+                Map<String, Long> locationNameToID = Archipelago.archipelago.getDataPackage().getGame("Forge Adventure").locationNameToId;
+                if (!locationNameToID.containsKey(s[0])){
+                    return s[0] + " is not a valid location.";
+                }
+                if (!missing_locations.contains(locationNameToID.get(s[0]))){
+                    return s[0] + " has already been checked, or is not included.";
+                }
+                Archipelago.archipelago.checkLocation(locationNameToID.get(s[0]));
+                return "Attempting to send location with name " + s[0] + ".";
+            }
+            Archipelago.archipelago.checkLocation(value);
+            return "Attempting to send location with ID " + s[0] + ".";
+        });
     }
 }
