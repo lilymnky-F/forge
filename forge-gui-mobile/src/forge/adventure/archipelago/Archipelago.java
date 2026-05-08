@@ -4,6 +4,9 @@ import io.github.archipelagomw.Client;
 import io.github.archipelagomw.events.ConnectionResultEvent;
 import io.github.archipelagomw.flags.ItemsHandling;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Set;
 import java.util.function.Consumer;
 import java.util.function.Function;
@@ -68,6 +71,22 @@ public class Archipelago extends Client {
         }
         return false;
     }
+
+    // Location Helpers
+
+    public static boolean check_location_name(String name) {
+        Set<Long> missing_locations = archipelago.getLocationManager().getMissingLocations();
+        Map<String, Long> locationNameToID = archipelago.getDataPackage().getGame("Forge Adventure").locationNameToId;
+        if (!locationNameToID.containsKey(name)) {
+            return false;
+        }
+        if (!missing_locations.contains(locationNameToID.get(name))) {
+            return false;
+        }
+        archipelago.checkLocation(locationNameToID.get(name));
+        return true;
+    }
+
     // Slot Data Methods ///////////////////////////////////////////////////////////////////////////////////////////////
 
     public static ForgeSlotData initSlotData(ConnectionResultEvent event) {
@@ -91,19 +110,18 @@ public class Archipelago extends Client {
     public static class ForgeSlotData {
         public String world_version;
 
-        public int goal_condition;
+        // public int goal_condition;
 
-        public int keys_required;
+        public int castles_required;
 
-        public int pips_required;
+        // public int pips_required;
 
         public int deathlink;
-//        public int traplink;
+        public int random_replacements;
+        public HashMap<String, ArrayList<String>> enemy_locations;
 
         public Set<String> starting_cards;
         public Set<String> disabled_biomes;
 
-//        public long seed;
-//        public int randomize_mob_spawns;
     }
 }

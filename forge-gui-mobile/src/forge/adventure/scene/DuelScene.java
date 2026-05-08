@@ -7,6 +7,7 @@ import com.google.common.collect.ImmutableList;
 import forge.Forge;
 import forge.Graphics;
 import forge.LobbyPlayer;
+import forge.adventure.archipelago.Archipelago;
 import forge.card.CardRenderer;
 import forge.card.CardRenderer.CardStackPosition;
 import forge.card.CardZoom;
@@ -208,7 +209,9 @@ public class DuelScene extends ForgeScene {
             Forge.advFreezePlayerControls = false;
             Scene last = Forge.switchToLast();
             Current.player().getStatistic().setResult(enemyName, winner);
-
+            if (Archipelago.archipelago != null && winner){
+                Archipelago.check_location_name(enemyName);
+            }
             if (last instanceof IAfterMatch) {
                 ((IAfterMatch) last).setWinner(winner, isArena);
             }
