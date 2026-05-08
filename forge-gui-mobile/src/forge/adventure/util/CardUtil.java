@@ -4,6 +4,7 @@ import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.utils.Json;
 import com.google.common.collect.Iterables;
 import forge.StaticData;
+import forge.adventure.archipelago.Archipelago;
 import forge.adventure.data.ConfigData;
 import forge.adventure.data.GeneratedDeckData;
 import forge.adventure.data.GeneratedDeckTemplateData;
@@ -37,6 +38,7 @@ import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 import static forge.adventure.data.RewardData.generateAllCards;
+import static forge.adventure.data.RewardData.getAllCards;
 
 /**
  * Utility class to deck generation and card filtering
@@ -866,7 +868,10 @@ public class CardUtil {
             }
         }
         if (validCards.isEmpty()) {
-            return getReplacement(cardName, "Wastes");
+            if (!(Archipelago.archipelago != null && Archipelago.getSlotData().random_replacements == 1)) {
+                return getReplacement(cardName, "Wastes");
+            }
+            getAllCards().forEach(validCards::add);
         }
 
         return validCards.get(Current.world().getRandom().nextInt(validCards.size()));
