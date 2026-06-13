@@ -218,7 +218,7 @@ public class WorldStage extends GameStage implements SaveFileContent {
         }
         lastBiome = currentBiome;
         BiomeData data = biomeData.get(currentBiome);
-        return data == null || !allowedBiomes.contains(data.name);
+        return data == null || !allowedFullBiomes.contains(data.name);
     }
 
     public boolean handlePointsOfInterestCollision() {

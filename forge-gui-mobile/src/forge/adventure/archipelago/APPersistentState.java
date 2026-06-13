@@ -9,6 +9,7 @@ public class APPersistentState {
     public static APPersistentState state = new APPersistentState();
 
     public static List<String> allowedBiomes = new ArrayList<>();
+    public static List<String> allowedFullBiomes = new ArrayList<>();
     public static Integer lastBiome = null;
 
     private String currentServer = "";

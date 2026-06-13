@@ -14,6 +14,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import static forge.adventure.archipelago.APPersistentState.allowedBiomes;
+import static forge.adventure.archipelago.APPersistentState.allowedFullBiomes;
 import static forge.adventure.data.RewardData.initializeAllCards;
 
 
@@ -64,6 +65,10 @@ public class APReceiveItemEvents {
         }
         if (event.getItemName().contains("Biome")) {
             String[] s = event.getItemName().split(" ");
+            String biome = APData.basic_to_biome.get(s[1].toLowerCase());
+            if (allowedBiomes.contains(biome)){
+                allowedFullBiomes.add(APData.basic_to_biome.get(s[1].toLowerCase()));
+            }
             allowedBiomes.add(APData.basic_to_biome.get(s[1].toLowerCase()));
         }
 
