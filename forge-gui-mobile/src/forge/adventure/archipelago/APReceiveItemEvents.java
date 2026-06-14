@@ -65,11 +65,11 @@ public class APReceiveItemEvents {
         }
         if (event.getItemName().contains("Biome")) {
             String[] s = event.getItemName().split(" ");
-            String biome = APData.basic_to_biome.get(s[1].toLowerCase());
+            String biome = APData.BASIC_TO_BIOME.get(s[1].toLowerCase());
             if (allowedBiomes.contains(biome)){
-                allowedFullBiomes.add(APData.basic_to_biome.get(s[1].toLowerCase()));
+                allowedFullBiomes.add(APData.BASIC_TO_BIOME.get(s[1].toLowerCase()));
             }
-            allowedBiomes.add(APData.basic_to_biome.get(s[1].toLowerCase()));
+            allowedBiomes.add(APData.BASIC_TO_BIOME.get(s[1].toLowerCase()));
         }
 
     }

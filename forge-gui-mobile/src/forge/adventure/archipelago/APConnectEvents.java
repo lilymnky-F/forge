@@ -23,7 +23,7 @@ public class APConnectEvents {
             String version = slot.world_version;
 
             if (version != null) {
-                 if (!version.contains(APData.correct_world_version)) {
+                 if (!version.contains(APData.CORRECT_WORLD_VERSION)) {
                     // Inform the user their world is invalid, and tell them the correct one
                     Archipelago.run(Client::close);
                     return;
