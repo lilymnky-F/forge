@@ -23,11 +23,11 @@ public class APConnectEvents {
             String version = slot.world_version;
 
             if (version != null) {
-                 /*if (!version.contains(APMod.VALID_WORLD_VERSION)) {
+                 if (!version.contains(APData.correct_world_version)) {
                     // Inform the user their world is invalid, and tell them the correct one
                     Archipelago.run(Client::close);
                     return;
-                }*/
+                }
             } else {
                 // Inform the user the apworld they connected to is invalid? IDK how this would happen but good to have ig
                 Archipelago.run(Client::close);

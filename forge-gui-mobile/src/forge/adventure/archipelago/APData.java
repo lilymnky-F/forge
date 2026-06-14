@@ -13,4 +13,6 @@ public class APData {
         basic_to_biome.put("forest", "green");
         basic_to_biome.put("wastes", "waste");
     }
+
+    static String correct_world_version = "0.0.1";
 }
