@@ -109,19 +109,16 @@ public class Archipelago extends Client {
 
     public static class ForgeSlotData {
         public String world_version;
-
-        // public int goal_condition;
-
         public int castles_required;
-
-        // public int pips_required;
-
         public int deathlink;
         public int random_replacements;
         public HashMap<String, ArrayList<String>> enemy_locations;
+        public ArrayList<String> include_extras;
 
-        public Set<String> starting_cards;
-        public Set<String> disabled_biomes;
+        // public int goal_condition;
+        // public int pips_required;
+        // public Set<String> starting_cards;
+        // public Set<String> disabled_biomes;
 
     }
 }
