@@ -49,6 +49,7 @@ public class APReceiveItemEvents {
             }
 
             System.out.println("Added " + amount + " " + edition.getCode() + " booster(s)");
+            return;
         }
         if (event.getItemName().contains("Access")) {
             // Find the name of the set to include, should be first string in the item
@@ -80,14 +81,23 @@ public class APReceiveItemEvents {
             configData.allowedEditions = allowed.toArray(new String[0]);
             initializeAllCards();
             System.out.println("Added set " + s[0] + " to allowed sets.");
+            return;
         }
         if (event.getItemName().contains("Biome")) {
             String[] s = event.getItemName().split(" ");
             String biome = APData.BASIC_TO_BIOME.get(s[1].toLowerCase());
             if (allowedBiomes.contains(biome)){
-                allowedFullBiomes.add(APData.BASIC_TO_BIOME.get(s[1].toLowerCase()));
+                allowedFullBiomes.add(biome);
+                return;
             }
-            allowedBiomes.add(APData.BASIC_TO_BIOME.get(s[1].toLowerCase()));
+            allowedBiomes.add(biome);
+
+            // Add rune if they don't have it
+            String rune = "Starter " + biome + " Rune";
+            if (!Current.player().hasItem(rune)){
+                Current.player().addItem(rune);
+            }
+
         }
 
     }
