@@ -11,8 +11,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static forge.adventure.archipelago.Archipelago.archipelago;
-
 public class PlayerStatistic implements SaveFileContent {
 
     HashMap<String, Pair<Integer,Integer>> winLossRecord=new HashMap<>();
