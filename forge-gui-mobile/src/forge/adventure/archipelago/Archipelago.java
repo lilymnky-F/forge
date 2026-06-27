@@ -1,15 +1,15 @@
 package forge.adventure.archipelago;
 
 import io.github.archipelagomw.Client;
+import io.github.archipelagomw.ClientStatus;
 import io.github.archipelagomw.events.ConnectionResultEvent;
 import io.github.archipelagomw.flags.ItemsHandling;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 import java.util.function.Consumer;
 import java.util.function.Function;
+
+import static forge.adventure.archipelago.APData.BOSS_LIST;
 
 public class Archipelago extends Client {
     public static Archipelago archipelago;
@@ -80,13 +80,30 @@ public class Archipelago extends Client {
         if (!locationNameToID.containsKey(name)) {
             return false;
         }
-        if (!missing_locations.contains(locationNameToID.get(name))) {
-            return false;
+        Long enemy_id = locationNameToID.get(name);
+        if (BOSS_LIST.contains(name)){
+            Long boss_id = locationNameToID.get(name+" Defeated");
+            if (missing_locations.contains(boss_id)) {
+                archipelago.checkLocation(boss_id);
+            }
+            check_for_goal();
         }
-        archipelago.checkLocation(locationNameToID.get(name));
-        return true;
+        if (missing_locations.contains(enemy_id)) {
+            archipelago.checkLocation(enemy_id);
+            return true;
+        }
+        return false;
     }
 
+    public static boolean check_for_goal() {
+        List<Long> items = archipelago.getItemManager().getReceivedItemIDs();
+        int count = Collections.frequency(items, 3000L);
+        if (count >= slotData.castles_required){
+            archipelago.setGameState(ClientStatus.CLIENT_GOAL);
+            return true;
+        }
+        return false;
+    }
     // Slot Data Methods ///////////////////////////////////////////////////////////////////////////////////////////////
 
     public static ForgeSlotData initSlotData(ConnectionResultEvent event) {
@@ -114,6 +131,7 @@ public class Archipelago extends Client {
         public int random_replacements;
         public HashMap<String, ArrayList<String>> enemy_locations;
         public ArrayList<String> include_extras;
+        public ArrayList<ArrayList<Object>> included_cards;
 
         // public int goal_condition;
         // public int pips_required;

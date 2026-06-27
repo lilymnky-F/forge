@@ -16,6 +16,8 @@ import static forge.adventure.archipelago.Archipelago.archipelago;
 public class PlayerStatistic implements SaveFileContent {
 
     HashMap<String, Pair<Integer,Integer>> winLossRecord=new HashMap<>();
+    int lastRecievedIndex = -1;
+    int includedCardIndex = 0;
     List<AdventureEventData> completedEvents = new ArrayList<>();
     int secondPlayed=0;
 
@@ -121,6 +123,24 @@ public class PlayerStatistic implements SaveFileContent {
     {
         return secondPlayed;
     }
+    public int getLastRecievedIndex()
+    {
+        return lastRecievedIndex;
+    }
+
+    public void setLastRecievedIndex(int newIndex) {
+        lastRecievedIndex = newIndex;
+    }
+
+    public int getIncludedCardIndex()
+    {
+        return includedCardIndex;
+    }
+
+    public void setIncludedCardIndex(int newIndex) {
+        includedCardIndex = newIndex;
+    }
+
     @Override
     public void load(SaveFileData data) {
 
@@ -137,6 +157,10 @@ public class PlayerStatistic implements SaveFileContent {
         }
         else
             completedEvents.clear();
+        if(data!=null&&data.containsKey("lastRecievedIndex"))
+            lastRecievedIndex = (int) data.readObject("lastRecievedIndex");
+        else
+            lastRecievedIndex = -1;
     }
 
     public void setResult(String enemy,boolean win)
@@ -165,6 +189,7 @@ public class PlayerStatistic implements SaveFileContent {
         SaveFileData data=new SaveFileData();
         data.storeObject("winLossRecord",winLossRecord);
         data.storeObject("completedEvents", completedEvents);
+        data.storeObject("lastRecievedIndex", lastRecievedIndex);
         return data;
     }
 
