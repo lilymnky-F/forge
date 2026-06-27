@@ -129,9 +129,9 @@ public class APData {
 
     static {
         BOSS_LIST.add("Akroma");
-        BOSS_LIST.add("Akroma");
-        BOSS_LIST.add("Akroma");
-        BOSS_LIST.add("Akroma");
-        BOSS_LIST.add("Akroma");
+        BOSS_LIST.add("Lorthos");
+        BOSS_LIST.add("Griselbrand");
+        BOSS_LIST.add("Lathliss");
+        BOSS_LIST.add("Ghalta");
     }
 }
