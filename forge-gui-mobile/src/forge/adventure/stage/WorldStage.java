@@ -7,7 +7,6 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.utils.Timer;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import forge.Forge;
-import forge.adventure.archipelago.APPersistentState;
 import forge.adventure.character.CharacterSprite;
 import forge.adventure.character.EnemySprite;
 import forge.adventure.data.*;
@@ -337,7 +336,6 @@ public class WorldStage extends GameStage implements SaveFileContent {
             else {
                 spawn(enemyData);
             }
-
         } else spawn(enemyData);
     }
 

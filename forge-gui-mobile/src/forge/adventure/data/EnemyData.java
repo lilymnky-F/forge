@@ -108,13 +108,18 @@ public class EnemyData implements Serializable {
     }
 
     public String getName(){
+        return getName(false);
+    }
+
+    public String getName(boolean ignoreOverride){
         //todo: make this the default accessor for anything seen in UI
-        if (nameOverride != null && !nameOverride.isEmpty())
+        if (nameOverride != null && !nameOverride.isEmpty() && !ignoreOverride)
             return nameOverride;
         if (name != null && !name.isEmpty())
             return name;
         return "(Unnamed Enemy)";
     }
+
     public String getBossInsult(){
         return bossInsult;
     }

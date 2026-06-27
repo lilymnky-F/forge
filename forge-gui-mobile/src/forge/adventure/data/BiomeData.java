@@ -55,7 +55,7 @@ public class BiomeData implements Serializable {
                 return enemyList;
             for (EnemyData data : new Array.ArrayIterator<>(WorldData.getAllEnemies())) {
                 for (String enemyName : enemies) {
-                    if (data.getName().equals(enemyName)) {
+                    if (data.getName(true).equals(enemyName)) {
                         enemyList.add(data);
                         break;
                     }
@@ -108,7 +108,7 @@ public class BiomeData implements Serializable {
         ArrayList<EnemyData> newSpawnEnemies = new ArrayList<>();
         for (EnemyData data : enemyList) {
             if (data.spawnRate > 0) {
-                if (winLossRecord.get(data.name) == null || winLossRecord.get(data.name).getKey() == 0) {
+                if (winLossRecord.get(data.getName()) == null || winLossRecord.get(data.getName()).getKey() == 0) {
                     newSpawnEnemies.add(data);
                 }
             }
