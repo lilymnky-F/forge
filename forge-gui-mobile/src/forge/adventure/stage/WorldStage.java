@@ -327,15 +327,16 @@ public class WorldStage extends GameStage implements SaveFileContent {
                 spawn(enemyData);
             }
 
-        } else if (newEnemyData != null) {
+        } else if (newEnemyData != null && archipelago != null) {
             float spawnPicker = rand.nextFloat();
-
+            // Currently 100% odds
             if (spawnPicker > 0f) {
                 spawn(newEnemyData);
             }
             else {
                 spawn(enemyData);
             }
+
         } else spawn(enemyData);
     }
 
